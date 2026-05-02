@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBT SAS 2 PKN Kelas 6</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --primary: #b91c1c;
+      --primary-dark: #7f1d1d;
+      --accent: #ef4444;
+      --accent-soft: #fecaca;
+      --gold: #f59e0b;
+      --success: #15803d;
+      --danger: #991b1b;
+      --text: #1f2937;
+      --muted: #6b4a4a;
+      --cream: #fff1f2;
+      --paper: rgba(255, 247, 247, 0.95);
+      --border: rgba(185, 28, 28, 0.18);
+      --shadow: 0 18px 45px rgba(127, 29, 29, 0.16);
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(239, 68, 68, 0.24), transparent 22%),
+        radial-gradient(circle at 88% 18%, rgba(127, 29, 29, 0.18), transparent 25%),
+        radial-gradient(circle at 82% 82%, rgba(245, 158, 11, 0.18), transparent 22%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.16) 0 12px, rgba(255,255,255,0.04) 12px 24px),
+        linear-gradient(135deg, #fee2e2, #fff7f7 45%, #fecaca);
+      background-attachment: fixed;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.24;
+      background-image:
+        radial-gradient(circle at 20px 20px, rgba(185,28,28,0.17) 0 2px, transparent 2px),
+        radial-gradient(circle at 70px 55px, rgba(239,68,68,0.16) 0 2px, transparent 2px),
+        linear-gradient(45deg, transparent 0 48%, rgba(245,158,11,0.1) 48% 52%, transparent 52% 100%);
+      background-size: 90px 90px, 90px 90px, 120px 120px;
+      mix-blend-mode: multiply;
+    }
+    .container { max-width: 1120px; margin: auto; padding: 20px; position: relative; z-index: 1; }
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -35px -35px auto;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(239,68,68,0.16), transparent 68%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hidden { display: none; }
+    .center { text-align: center; }
+    h1, h2, h3 { margin-top: 0; }
+    h1 { font-size: 34px; letter-spacing: -0.5px; }
+    h2 { color: #3a2f2f; }
+    .school-title {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--primary-dark);
+      background: linear-gradient(135deg, rgba(245,158,11,0.22), rgba(239,68,68,0.2));
+      font-weight: bold;
+      margin-bottom: 12px;
+      border: 1px solid rgba(185,28,28,0.12);
+    }
+    .subject-mark {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(185,28,28,0.08);
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border-radius: 14px;
+      border: 1px solid #e2c7c7;
+      font-size: 16px;
+    }
+    input { background: rgba(255,255,255,0.95); }
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(239,68,68,0.14);
+    }
+    .password-wrapper { position: relative; width: 100%; }
+    .password-wrapper input { padding-right: 56px; }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      box-shadow: none;
+      color: #7f5b5b;
+      cursor: pointer;
+    }
+    .toggle-password:hover {
+      filter: none;
+      transform: translateY(-50%);
+      background: rgba(239,68,68,0.12);
+      color: var(--accent);
+    }
+    .toggle-password:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(239,68,68,0.14);
+    }
+    .toggle-password svg { width: 22px; height: 22px; pointer-events: none; }
+    button {
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(127, 29, 29, 0.18);
+      transition: 0.18s ease;
+    }
+    button:hover { filter: brightness(0.98); transform: translateY(-1px); }
+    button.secondary { background: #7f5b5b; box-shadow: none; }
+    button.danger { background: #991b1b; box-shadow: none; }
+    button.success { background: #15803d; box-shadow: none; }
+    .topbar { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
+    .badge {
+      background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      min-width: 112px;
+    }
+    .meta { color: var(--muted); margin-top: 6px; }
+    .question-number {
+      display: inline-block;
+      color: var(--primary-dark);
+      background: rgba(185,28,28,0.12);
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .question-text { font-size: 20px; line-height: 1.65; margin-bottom: 18px; white-space: pre-line; }
+    .option {
+      display: block;
+      padding: 15px;
+      border: 1px solid #e2c7c7;
+      border-radius: 16px;
+      margin: 10px 0;
+      cursor: pointer;
+      background: rgba(255,255,255,0.78);
+      transition: 0.18s;
+    }
+    .option:hover { background: rgba(239,68,68,0.08); border-color: var(--accent); }
+    .option input { width: auto; margin-right: 10px; }
+    .option.selected {
+      background: rgba(239,68,68,0.14);
+      border-color: var(--accent);
+      box-shadow: 0 8px 18px rgba(239,68,68,0.12);
+    }
+    .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 8px; }
+    .nav-grid button { padding: 10px; color: #2a2926; background: #f3dede; box-shadow: none; }
+    .nav-grid button.answered { background: #15803d; color: white; }
+    .nav-grid button.active { background: linear-gradient(135deg, var(--accent), var(--gold)); color: white; }
+    .result-box {
+      background: linear-gradient(135deg, rgba(245,158,11,0.16), rgba(185,28,28,0.12), rgba(239,68,68,0.14));
+      padding: 24px;
+      border-radius: 20px;
+      margin: 18px 0;
+      font-size: 34px;
+      font-weight: bold;
+      color: #2b1f1f;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .summary-item {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(185,28,28,0.18);
+    }
+    .summary-item strong { display: block; font-size: 22px; margin-top: 4px; }
+    .result-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .note {
+      background: #fff1f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 14px;
+      margin-top: 12px;
+      text-align: left;
+    }
+    .status { color: var(--muted); font-weight: bold; min-height: 24px; }
+    .review-list { text-align: left; margin-top: 18px; }
+    .review-item {
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(185,28,28,0.18);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .review-item.correct { border-left: 6px solid #15803d; }
+    .review-item.wrong { border-left: 6px solid #991b1b; }
+    .review-title { font-weight: 700; margin-bottom: 8px; }
+    .review-meta { color: #475569; line-height: 1.6; }
+    .footer-note { font-size: 13px; color: var(--muted); margin-top: 16px; }
+    @media (max-width: 720px) {
+      .topbar, .actions, .result-actions, .summary-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+      .question-text { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="accessPage" class="card center">
+      <div class="hero-badge">Akses Ujian</div>
+      <div class="subject-mark">CBT SAS 2 PKN</div>
+      <h1>CBT SAS 2 PKN</h1>
+      <h2>Kelas 6 SD</h2>
+      <p>Masukkan kode akses untuk melanjutkan ke halaman identitas siswa.</p>
+      <div class="password-wrapper">
+        <input id="accessCodeInput" type="password" placeholder="Masukkan kode akses" autocomplete="off" />
+        <button type="button" class="toggle-password" onclick="toggleAccessCode()" aria-label="Tampilkan kode akses">
+          <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </button>
+      </div>
+      <button onclick="checkAccessCode()">Masuk</button>
+      <p class="status" id="accessStatus"></p>
+    </div>
+
+    <div id="loginPage" class="card center hidden">
+      <div class="school-title">
+        PEMERINTAH KABUPATEN SAMPANG<br>
+        DINAS PENDIDIKAN<br>
+        UPTD SD NEGERI TAMANSAREH 1<br>
+        DESA TAMANSAREH, KECAMATAN SAMPANG
+      </div>
+      <div class="hero-badge">Identitas Peserta</div>
+      <div class="subject-mark">Nuansa merah untuk PKN</div>
+      <h1>CBT SAS 2 PKN</h1>
+      <h2>Kelas 6 SD</h2>
+      <p>Waktu: 90 menit | Jumlah soal: <span id="totalQuestionText"></span></p>
+      <input id="studentName" type="text" placeholder="Nama siswa" autocomplete="off" />
+      <input id="studentNumber" type="text" placeholder="No. absen" autocomplete="off" />
+      <input id="studentClass" type="text" placeholder="Kelas, contoh: 6A" autocomplete="off" />
+      <button onclick="startExam()">Mulai Ujian</button>
+    </div>
+
+    <div id="examPage" class="hidden">
+      <div class="card topbar">
+        <div>
+          <h2>CBT SAS 2 PKN</h2>
+          <div class="meta" id="studentInfo"></div>
+        </div>
+        <div class="badge" id="timer">90:00</div>
+      </div>
+
+      <div class="card">
+        <div class="question-number" id="questionTitle"></div>
+        <div class="question-text" id="questionText"></div>
+        <div id="options"></div>
+        <div class="actions">
+          <button class="secondary" onclick="prevQuestion()">Sebelumnya</button>
+          <button onclick="nextQuestion()">Berikutnya</button>
+          <button class="danger" onclick="finishExam(false)">Selesai</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Navigasi Soal</h3>
+        <div class="nav-grid" id="questionNav"></div>
+      </div>
+    </div>
+
+    <div id="resultPage" class="card hidden center">
+      <div class="hero-badge">Hasil Ujian</div>
+      <h1>Terima kasih</h1>
+      <p id="resultIdentity"></p>
+      <div class="result-box" id="scoreBox"></div>
+      <div class="summary-grid">
+        <div class="summary-item">Jawaban Benar<strong id="correctCount">0</strong></div>
+        <div class="summary-item">Jawaban Salah<strong id="wrongCount">0</strong></div>
+        <div class="summary-item">Belum Dijawab<strong id="blankCount">0</strong></div>
+      </div>
+      <p class="status" id="sheetStatus">Mengirim hasil ke Google Sheet...</p>
+      <div class="result-actions">
+        <button onclick="toggleReview()">Lihat Kunci Jawaban</button>
+        <button onclick="window.print()">Cetak Hasil</button>
+      </div>
+      <div id="reviewSection" class="hidden review-list"></div>
+      <div class="footer-note">Versi PKN dengan nuansa merah. Hasil dikirim dengan mapel PKN agar masuk tab PKN jika Apps Script memakai nama mapel sebagai nama sheet.</div>
+    </div>
+  </div>
+
+  <script>
+    const ACCESS_CODE = "1dn";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz15ma8lDvxQVgGuLdeODjMmIAWgTSQ-d4AyEiY74RZdb9AgnsrYJeh0MOkJ78J4-hkQQ/exec";
+    const questions = [{"text": "Sikap menghormati teman berbeda agama mencerminkan sila...", "options": {"A": "1", "B": "2", "C": "3", "D": "4"}, "answer": "A"}, {"text": "Jika ada teman diejek karena sukunya, sikapmu sebaiknya...", "options": {"A": "Ikut mengejek", "B": "Diam saja", "C": "Membela dan menasihati", "D": "Menjauh"}, "answer": "C"}, {"text": "Perbedaan budaya di Indonesia sebaiknya...", "options": {"A": "Dipermasalahkan", "B": "Dihindari", "C": "Dihargai", "D": "Diabaikan"}, "answer": "C"}, {"text": "Hak tanpa kewajiban akan menyebabkan...", "options": {"A": "Keseimbangan", "B": "Kekacauan", "C": "Keadilan", "D": "Ketertiban"}, "answer": "B"}, {"text": "Musyawarah diperlukan agar...", "options": {"A": "Menang sendiri", "B": "Ada konflik", "C": "Tercapai mufakat", "D": "Cepat selesai"}, "answer": "C"}, {"text": "Contoh pelanggaran norma di sekolah adalah...", "options": {"A": "Belajar", "B": "Menyontek", "C": "Membaca", "D": "Bertanya"}, "answer": "B"}, {"text": "Jika aturan dilanggar terus-menerus maka...", "options": {"A": "Tertib", "B": "Damai", "C": "Kacau", "D": "Aman"}, "answer": "C"}, {"text": "Gotong royong menunjukkan sikap...", "options": {"A": "Individual", "B": "Egois", "C": "Kebersamaan", "D": "Acuh"}, "answer": "C"}, {"text": "Saat melihat perbedaan pendapat, kita harus...", "options": {"A": "Memaksa", "B": "Menghargai", "C": "Menghindar", "D": "Marah"}, "answer": "B"}, {"text": "Sikap adil berarti...", "options": {"A": "Pilih kasih", "B": "Tidak memihak", "C": "Curang", "D": "Egois"}, "answer": "B"}, {"text": "Seorang siswa tidak mau ikut kerja kelompok karena merasa paling pintar. Sikap ini bertentangan dengan nilai...", "options": {"A": "Persatuan", "B": "Keadilan", "C": "Ketuhanan", "D": "Keindahan"}, "answer": "A"}, {"text": "Jika masyarakat tidak mematuhi aturan, dampaknya adalah...", "options": {"A": "Aman", "B": "Damai", "C": "Tidak tertib", "D": "Sejahtera"}, "answer": "C"}, {"text": "Menghargai budaya daerah lain dapat memperkuat...", "options": {"A": "Perpecahan", "B": "Persatuan", "C": "Persaingan", "D": "Konflik"}, "answer": "B"}, {"text": "Jika hak dihormati tetapi kewajiban diabaikan, maka akan terjadi...", "options": {"A": "Keadilan", "B": "Ketimpangan", "C": "Keseimbangan", "D": "Ketertiban"}, "answer": "B"}, {"text": "Contoh sikap yang mencerminkan sila ke-2 dalam kehidupan sehari-hari adalah...", "options": {"A": "Menolong teman", "B": "Bermalas-malasan", "C": "Bertengkar", "D": "Menyontek"}, "answer": "A"}, {"text": "Seorang siswa menaati aturan walau tidak diawasi. Ini menunjukkan sikap...", "options": {"A": "Takut", "B": "Disiplin", "C": "Malas", "D": "Terpaksa"}, "answer": "B"}, {"text": "Persatuan bangsa penting karena...", "options": {"A": "Memecah belah", "B": "Memperkuat negara", "C": "Menimbulkan konflik", "D": "Melemahkan"}, "answer": "B"}, {"text": "Jika temanmu berbeda pendapat saat diskusi, sebaiknya...", "options": {"A": "Memaksa", "B": "Mendengarkan", "C": "Mengabaikan", "D": "Marah"}, "answer": "B"}, {"text": "Norma dibuat agar kehidupan...", "options": {"A": "Kacau", "B": "Teratur", "C": "Bebas", "D": "Sulit"}, "answer": "B"}, {"text": "Menghormati orang tua adalah kewajiban di...", "options": {"A": "Sekolah", "B": "Rumah", "C": "Jalan", "D": "Kantor"}, "answer": "B"}, {"text": "Contoh sikap menjaga persatuan adalah...", "options": {"A": "Bertengkar", "B": "Mengejek", "C": "Kerja sama", "D": "Membenci"}, "answer": "C"}, {"text": "Keberagaman adalah...", "options": {"A": "Kesamaan", "B": "Perbedaan", "C": "Persamaan", "D": "Keseragaman"}, "answer": "B"}, {"text": "Jika terjadi konflik, cara terbaik menyelesaikannya adalah...", "options": {"A": "Kekerasan", "B": "Musyawarah", "C": "Diam", "D": "Kabur"}, "answer": "B"}, {"text": "Sikap toleransi penting agar...", "options": {"A": "Bertengkar", "B": "Damai", "C": "Konflik", "D": "Menang"}, "answer": "B"}, {"text": "Kewajiban siswa adalah...", "options": {"A": "Bermain", "B": "Belajar", "C": "Tidur", "D": "Libur"}, "answer": "B"}, {"text": "Hak siswa di sekolah adalah...", "options": {"A": "Menyontek", "B": "Mendapat pelajaran", "C": "Bolos", "D": "Melanggar"}, "answer": "B"}, {"text": "Jika semua warga saling menghargai maka akan tercipta...", "options": {"A": "Konflik", "B": "Kerukunan", "C": "Kekacauan", "D": "Perselisihan"}, "answer": "B"}, {"text": "Peraturan dibuat untuk...", "options": {"A": "Menyulitkan", "B": "Mengatur", "C": "Membatasi", "D": "Membingungkan"}, "answer": "B"}, {"text": "Sikap cinta tanah air ditunjukkan dengan...", "options": {"A": "Merusak", "B": "Menjaga", "C": "Menghina", "D": "Melupakan"}, "answer": "B"}, {"text": "Bangga terhadap budaya sendiri adalah bentuk...", "options": {"A": "Nasionalisme", "B": "Egoisme", "C": "Individualisme", "D": "Konflik"}, "answer": "A"}];
+
+    let currentQuestion = 0;
+    let answers = Array(questions.length).fill(null);
+    let studentName = "";
+    let studentNumber = "";
+    let studentClass = "";
+    let timeLeft = 90 * 60;
+    let timerInterval;
+    let finished = false;
+
+    document.getElementById("totalQuestionText").innerText = questions.length;
+
+    function toggleAccessCode() {
+      const input = document.getElementById("accessCodeInput");
+      const button = document.querySelector(".toggle-password");
+      const eyeIcon = document.getElementById("eyeIcon");
+
+      if (input.type === "password") {
+        input.type = "text";
+        button.setAttribute("aria-label", "Sembunyikan kode akses");
+        eyeIcon.innerHTML = `
+          <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19C5.5 19 2 12 2 12a20.29 20.29 0 0 1 5.06-5.94"></path>
+          <path d="M9.9 4.24A10.82 10.82 0 0 1 12 4.99C18.5 5 22 12 22 12a20.25 20.25 0 0 1-2.16 3.19"></path>
+          <path d="M14.12 14.12a3 3 0 0 1-4.24-4.24"></path>
+          <path d="M1 1l22 22"></path>
+        `;
+      } else {
+        input.type = "password";
+        button.setAttribute("aria-label", "Tampilkan kode akses");
+        eyeIcon.innerHTML = `
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        `;
+      }
+      input.focus();
+    }
+
+    function checkAccessCode() {
+      const input = document.getElementById("accessCodeInput").value.trim();
+      const status = document.getElementById("accessStatus");
+      if (input === ACCESS_CODE) {
+        document.getElementById("accessPage").classList.add("hidden");
+        document.getElementById("loginPage").classList.remove("hidden");
+        status.innerText = "";
+      } else {
+        status.innerText = "Kode akses salah.";
+      }
+    }
+
+    document.getElementById("accessCodeInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") checkAccessCode();
+    });
+
+    function startExam() {
+      studentName = document.getElementById("studentName").value.trim();
+      studentNumber = document.getElementById("studentNumber").value.trim();
+      studentClass = document.getElementById("studentClass").value.trim();
+
+      if (!studentName || !studentNumber || !studentClass) {
+        alert("Nama, nomor absen, dan kelas wajib diisi.");
+        return;
+      }
+
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("examPage").classList.remove("hidden");
+      document.getElementById("studentInfo").innerText = `Nama: ${studentName} | No. Absen: ${studentNumber} | Kelas: ${studentClass}`;
+      renderQuestion();
+      renderNav();
+      startTimer();
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById("timer").innerText = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          finishExam(true);
+        }
+      }, 1000);
+    }
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("questionTitle").innerText = `Soal ${currentQuestion + 1} dari ${questions.length}`;
+      document.getElementById("questionText").innerText = q.text;
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      Object.keys(q.options).forEach(key => {
+        const label = document.createElement("label");
+        label.className = "option" + (answers[currentQuestion] === key ? " selected" : "");
+        label.innerHTML = `
+          <input type="radio" name="answer" value="${key}" ${answers[currentQuestion] === key ? "checked" : ""}>
+          <strong>${key}.</strong> ${q.options[key]}
+        `;
+        label.onclick = () => {
+          answers[currentQuestion] = key;
+          renderQuestion();
+          renderNav();
+        };
+        optionsDiv.appendChild(label);
+      });
+      renderNav();
+    }
+
+    function renderNav() {
+      const nav = document.getElementById("questionNav");
+      nav.innerHTML = "";
+      questions.forEach((_, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = index + 1;
+        if (answers[index]) btn.classList.add("answered");
+        if (index === currentQuestion) btn.classList.add("active");
+        btn.onclick = () => {
+          currentQuestion = index;
+          renderQuestion();
+        };
+        nav.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+      }
+    }
+
+    function finishExam(auto = false) {
+      if (finished) return;
+      if (!auto) {
+        const unanswered = answers.filter(a => a === null).length;
+        const confirmFinish = confirm(`Masih ada ${unanswered} soal belum dijawab. Yakin selesai?`);
+        if (!confirmFinish) return;
+      }
+
+      finished = true;
+      clearInterval(timerInterval);
+
+      let correct = 0;
+      let blank = 0;
+      questions.forEach((q, i) => {
+        if (answers[i] === null) blank++;
+        if (answers[i] === q.answer) correct++;
+      });
+      const wrong = questions.length - correct - blank;
+      const score = Math.round((correct / questions.length) * 100);
+
+      const resultData = {
+        mapel: "PKN",
+        nama: studentName,
+        noAbsen: studentNumber,
+        kelas: studentClass,
+        nilai: score,
+        benar: correct,
+        salah: wrong,
+        kosong: blank
+      };
+
+      localStorage.setItem("hasilCBTPKN", JSON.stringify(resultData));
+
+      document.getElementById("examPage").classList.add("hidden");
+      document.getElementById("resultPage").classList.remove("hidden");
+      document.getElementById("resultIdentity").innerText = `Nama: ${studentName} | No. Absen: ${studentNumber} | Kelas: ${studentClass}`;
+      document.getElementById("scoreBox").innerHTML = `Nilai: ${score}`;
+      document.getElementById("correctCount").innerText = correct;
+      document.getElementById("wrongCount").innerText = wrong;
+      document.getElementById("blankCount").innerText = blank;
+      buildReview();
+      sendToGoogleSheet(resultData);
+    }
+
+    function buildReview() {
+      const reviewSection = document.getElementById("reviewSection");
+      reviewSection.innerHTML = "";
+      questions.forEach((q, i) => {
+        const userAnswer = answers[i] || "-";
+        const isCorrect = answers[i] === q.answer;
+        const item = document.createElement("div");
+        item.className = `review-item ${isCorrect ? "correct" : "wrong"}`;
+        item.innerHTML = `
+          <div class="review-title">Soal ${i + 1}</div>
+          <div class="review-meta">
+            <div><strong>Pertanyaan:</strong> ${q.text.replace(/\n/g, '<br>')}</div>
+            <div><strong>Jawaban kamu:</strong> ${userAnswer}${userAnswer !== '-' ? `. ${q.options[userAnswer] || ''}` : ''}</div>
+            <div><strong>Kunci jawaban:</strong> ${q.answer}. ${q.options[q.answer]}</div>
+            <div><strong>Status:</strong> ${isCorrect ? 'Benar' : 'Perlu diperbaiki'}</div>
+          </div>
+        `;
+        reviewSection.appendChild(item);
+      });
+    }
+
+    function toggleReview() {
+      document.getElementById("reviewSection").classList.toggle("hidden");
+    }
+
+    function sendToGoogleSheet(data) {
+      const statusEl = document.getElementById("sheetStatus");
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "PASTE_URL_APPS_SCRIPT_DI_SINI") {
+        statusEl.innerText = "Google Sheet belum disambungkan. Isi GOOGLE_SCRIPT_URL dulu di kode.";
+        return;
+      }
+
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        statusEl.innerText = "Hasil sudah dikirim ke Google Sheet.";
+      })
+      .catch(() => {
+        statusEl.innerText = "Gagal mengirim ke Google Sheet. Cek koneksi atau URL Apps Script.";
+      });
+    }
+  </script>
+</body>
+</html>

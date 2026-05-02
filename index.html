@@ -75,11 +75,41 @@
     h1 { font-size: 34px; letter-spacing: -0.5px; }
     h2 { color: #3a2f2f; }
     .school-title {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--muted);
-      margin-bottom: 18px;
+      max-width: 720px;
+      margin: 0 auto 24px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(185, 28, 28, 0.14);
+      box-shadow: 0 10px 24px rgba(127, 29, 29, 0.07);
+      color: #5f3f3f;
+      line-height: 1.45;
+    }
+    .school-title .school-kop {
+      font-size: 12px;
+      letter-spacing: 0.7px;
       text-transform: uppercase;
+      color: #7a5555;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .school-title .school-name {
+      font-size: 20px;
+      letter-spacing: -0.2px;
+      color: #7f1d1d;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .school-title .school-address {
+      font-size: 13px;
+      color: #6b4a4a;
+    }
+    #accessPage, #loginPage, #resultPage {
+      max-width: 900px;
+      margin: 12px auto 18px;
+    }
+    #accessPage h1, #loginPage h1 {
+      margin-bottom: 8px;
     }
     .hero-badge {
       display: inline-block;
@@ -267,16 +297,15 @@
   <div class="container">
     <div id="accessPage" class="card center">
   <div class="school-title">
-    PEMERINTAH KABUPATEN SAMPANG<br>
-    DINAS PENDIDIKAN<br>
-    UPTD SD NEGERI TAMANSAREH 1<br>
-    DESA TAMANSAREH, KECAMATAN SAMPANG<br>
-    SAMPANG (69252)<br>
-    Email: sdntamansareh1720@gmail.com
-  </div>
+        <div class="school-kop">Pemerintah Kabupaten Sampang · Dinas Pendidikan</div>
+        <div class="school-name">UPTD SD Negeri Tamansareh 1</div>
+        <div class="school-address">
+          Desa Tamansareh, Kecamatan Sampang · Sampang 69252<br>
+          sdntamansareh1720@gmail.com
+        </div>
+      </div>
 
-  <div class="hero-badge">Akses Ujian</div>
-      <div class="subject-mark">CBT SAT PKN</div>
+
       <h1>CBT SAT PKN</h1>
       <h2>Kelas 6 SD</h2>
       <p>Masukkan kode akses untuk melanjutkan ke halaman identitas siswa.</p>
@@ -295,15 +324,14 @@
 
     <div id="loginPage" class="card center hidden">
       <div class="school-title">
-        PEMERINTAH KABUPATEN SAMPANG<br>
-        DINAS PENDIDIKAN<br>
-        UPTD SD NEGERI TAMANSAREH 1<br>
-        DESA TAMANSAREH, KECAMATAN SAMPANG<br>
-        SAMPANG (69252)<br>
-        Email: sdntamansareh1720@gmail.com
+        <div class="school-kop">Pemerintah Kabupaten Sampang · Dinas Pendidikan</div>
+        <div class="school-name">UPTD SD Negeri Tamansareh 1</div>
+        <div class="school-address">
+          Desa Tamansareh, Kecamatan Sampang · Sampang 69252<br>
+          sdntamansareh1720@gmail.com
+        </div>
       </div>
-      <div class="hero-badge">Identitas Peserta</div>
-      <div class="subject-mark">Nuansa merah untuk PKN</div>
+
       <h1>CBT SAT PKN</h1>
       <h2>Kelas 6 SD</h2>
       <p>Waktu: 90 menit | Jumlah soal: <span id="totalQuestionText"></span></p>

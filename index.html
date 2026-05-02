@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CBT SAS 2 PKN Kelas 6</title>
+  <title>CBT SAT PKN Kelas 6</title>
   <style>
     * { box-sizing: border-box; }
     :root {
@@ -228,7 +228,11 @@
       border: 1px solid rgba(185,28,28,0.18);
     }
     .summary-item strong { display: block; font-size: 22px; margin-top: 4px; }
-    .result-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
     .note {
       background: #fff1f2;
       border: 1px solid #fecaca;
@@ -262,9 +266,18 @@
 <body>
   <div class="container">
     <div id="accessPage" class="card center">
-      <div class="hero-badge">Akses Ujian</div>
-      <div class="subject-mark">CBT SAS 2 PKN</div>
-      <h1>CBT SAS 2 PKN</h1>
+  <div class="school-title">
+    PEMERINTAH KABUPATEN SAMPANG<br>
+    DINAS PENDIDIKAN<br>
+    UPTD SD NEGERI TAMANSAREH 1<br>
+    DESA TAMANSAREH, KECAMATAN SAMPANG<br>
+    SAMPANG (69252)<br>
+    Email: sdntamansareh1720@gmail.com
+  </div>
+
+  <div class="hero-badge">Akses Ujian</div>
+      <div class="subject-mark">CBT SAT PKN</div>
+      <h1>CBT SAT PKN</h1>
       <h2>Kelas 6 SD</h2>
       <p>Masukkan kode akses untuk melanjutkan ke halaman identitas siswa.</p>
       <div class="password-wrapper">
@@ -285,11 +298,13 @@
         PEMERINTAH KABUPATEN SAMPANG<br>
         DINAS PENDIDIKAN<br>
         UPTD SD NEGERI TAMANSAREH 1<br>
-        DESA TAMANSAREH, KECAMATAN SAMPANG
+        DESA TAMANSAREH, KECAMATAN SAMPANG<br>
+        SAMPANG (69252)<br>
+        Email: sdntamansareh1720@gmail.com
       </div>
       <div class="hero-badge">Identitas Peserta</div>
       <div class="subject-mark">Nuansa merah untuk PKN</div>
-      <h1>CBT SAS 2 PKN</h1>
+      <h1>CBT SAT PKN</h1>
       <h2>Kelas 6 SD</h2>
       <p>Waktu: 90 menit | Jumlah soal: <span id="totalQuestionText"></span></p>
       <input id="studentName" type="text" placeholder="Nama siswa" autocomplete="off" />
@@ -301,7 +316,7 @@
     <div id="examPage" class="hidden">
       <div class="card topbar">
         <div>
-          <h2>CBT SAS 2 PKN</h2>
+          <h2>CBT SAT PKN</h2>
           <div class="meta" id="studentInfo"></div>
         </div>
         <div class="badge" id="timer">90:00</div>
@@ -329,18 +344,10 @@
       <h1>Terima kasih</h1>
       <p id="resultIdentity"></p>
       <div class="result-box" id="scoreBox"></div>
-      <div class="summary-grid">
-        <div class="summary-item">Jawaban Benar<strong id="correctCount">0</strong></div>
-        <div class="summary-item">Jawaban Salah<strong id="wrongCount">0</strong></div>
-        <div class="summary-item">Belum Dijawab<strong id="blankCount">0</strong></div>
-      </div>
       <p class="status" id="sheetStatus">Mengirim hasil ke Google Sheet...</p>
       <div class="result-actions">
-        <button onclick="toggleReview()">Lihat Kunci Jawaban</button>
         <button onclick="window.print()">Cetak Hasil</button>
       </div>
-      <div id="reviewSection" class="hidden review-list"></div>
-      <div class="footer-note">Versi PKN dengan nuansa merah. Hasil dikirim dengan mapel PKN agar masuk tab PKN jika Apps Script memakai nama mapel sebagai nama sheet.</div>
     </div>
   </div>
 
@@ -525,37 +532,10 @@
       document.getElementById("resultPage").classList.remove("hidden");
       document.getElementById("resultIdentity").innerText = `Nama: ${studentName} | No. Absen: ${studentNumber} | Kelas: ${studentClass}`;
       document.getElementById("scoreBox").innerHTML = `Nilai: ${score}`;
-      document.getElementById("correctCount").innerText = correct;
-      document.getElementById("wrongCount").innerText = wrong;
-      document.getElementById("blankCount").innerText = blank;
-      buildReview();
+
       sendToGoogleSheet(resultData);
     }
 
-    function buildReview() {
-      const reviewSection = document.getElementById("reviewSection");
-      reviewSection.innerHTML = "";
-      questions.forEach((q, i) => {
-        const userAnswer = answers[i] || "-";
-        const isCorrect = answers[i] === q.answer;
-        const item = document.createElement("div");
-        item.className = `review-item ${isCorrect ? "correct" : "wrong"}`;
-        item.innerHTML = `
-          <div class="review-title">Soal ${i + 1}</div>
-          <div class="review-meta">
-            <div><strong>Pertanyaan:</strong> ${q.text.replace(/\n/g, '<br>')}</div>
-            <div><strong>Jawaban kamu:</strong> ${userAnswer}${userAnswer !== '-' ? `. ${q.options[userAnswer] || ''}` : ''}</div>
-            <div><strong>Kunci jawaban:</strong> ${q.answer}. ${q.options[q.answer]}</div>
-            <div><strong>Status:</strong> ${isCorrect ? 'Benar' : 'Perlu diperbaiki'}</div>
-          </div>
-        `;
-        reviewSection.appendChild(item);
-      });
-    }
-
-    function toggleReview() {
-      document.getElementById("reviewSection").classList.toggle("hidden");
-    }
 
     function sendToGoogleSheet(data) {
       const statusEl = document.getElementById("sheetStatus");
